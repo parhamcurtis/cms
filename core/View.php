@@ -16,6 +16,14 @@ class View {
         $this->_layout = $layout;
     }
 
+    public function setSiteTitle($title) {
+        $this->_siteTitle = $title;
+    }
+
+    public function getSiteTitle() {
+        return $this->_siteTitle;
+    }
+
     public function render($path = '') {
         if(empty($path)) {
             $path = $this->_defaultViewPath;
@@ -30,5 +38,29 @@ class View {
         }
         include($fullPath);
         include($layoutPath);
+    }
+
+    public function start($key) {
+        if(empty($key)) {
+            throw new \Exception("Your start method requires a valid key.");
+        }
+        $this->_buffer = $key;
+        ob_start();
+    }
+
+    public function end() {
+        if(empty($this->_buffer)) {
+            throw new \Exception("You must first run the start method.");
+        } 
+        $this->_content[$this->_buffer] = ob_get_clean();
+        $this->_buffer = null;
+    }
+
+    public function content($key) {
+        if(array_key_exists($key, $this->_content)) {
+            echo $this->_content[$key];
+        } else {
+            echo '';
+        }
     }
 }
