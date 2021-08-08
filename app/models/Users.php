@@ -10,4 +10,12 @@ class Users extends Model {
 
     const AUTHOR_PERMISSION = 'author';
     const ADMIN_PERMISSION = 'admin';
+
+    public function beforeSave(){
+        $this->timeStamps();
+
+        if($this->isNew()) {
+            $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+        }
+    }
 }

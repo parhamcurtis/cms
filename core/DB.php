@@ -52,7 +52,11 @@ class DB {
         $this->execute($sql, $bind);
         if(!$this->_error) {
             $this->_rowCount = $this->_stmt->rowCount();
-            $this->_results = $this->_stmt->fetchAll($this->_fetchType);
+            if($this->_fetchType === PDO::FETCH_CLASS) {
+                $this->_results = $this->_stmt->fetchAll($this->_fetchType, $this->_class);
+            } else {
+                $this->_results = $this->_stmt->fetchAll($this->_fetchType);
+            }
         }
         return $this;
     }
@@ -110,7 +114,15 @@ class DB {
         $this->_class = $class;
     }
 
+    public function getClass(){
+        return $this->_class;
+    }
+
     public function setFetchType($type) {
         $this->_fetchType = $type;
+    }
+
+    public function getFetchType(){
+        return $this->_fetchType;
     }
 }

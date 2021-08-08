@@ -49,4 +49,10 @@ class FH {
         }
         return $html;
     }
+
+    public static function csrfField(){
+        $token = Session::createCsrfToken();
+        $html = "<input type='hidden' value='{$token}' name='csrfToken' />";
+        return $html;
+    }
 }

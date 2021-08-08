@@ -12,10 +12,16 @@ class AuthController extends Controller {
         } else {
             $user = Users::findById($id);
         }
+        
 
         // if posted
         if($this->request->isPost()){
-            H::dnd($this->request->get());
+            Session::csrfCheck();
+            $fields = ['fname', 'lname', 'email', 'acl', 'password', 'confirm'];
+            foreach($fields as $field) {
+                $user->{$field} = $this->request->get($field);
+            }
+            $user->save();
         }
 
         $this->view->user = $user;

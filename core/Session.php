@@ -1,5 +1,6 @@
 <?php 
 namespace Core;
+use Core\Request;
 
 class Session {
 
@@ -20,5 +21,20 @@ class Session {
 
     public static function delete($name) {
         unset($_SESSION[$name]);
+    }
+
+    public static function createCsrfToken(){
+        $token = md5('csrf'.time());
+        self::set('csrfToken', $token);
+        return $token;
+    }
+
+    public static function csrfCheck(){
+        $request = new Request();
+        $check = $request->get('csrfToken');
+        if(self::exists('csrfToken') && self::get('csrfToken') == $check){
+            return true;
+        }
+        Router::redirect('auth/badToken');
     }
 }

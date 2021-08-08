@@ -53,7 +53,7 @@ class Model {
     }
 
     public static function findById($id) {
-        return self::findFirst([
+        return static::findFirst([
             'conditions' => "id = :id", 
             'bind' => ['id' => $id]
         ]);
@@ -81,7 +81,7 @@ class Model {
             if($this->isNew()) {
                 $save = $db->insert(static::$table, $values);
                 if($save) {
-                    $this->id = $db->getLastInsertId();
+                    $this->id = $db->lastInsertId();
                 }
             } else {
                 $save = $db->update(static::$table,$values, ['id' => $this->id]);
