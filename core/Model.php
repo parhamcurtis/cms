@@ -1,7 +1,7 @@
 <?php 
 namespace Core;
 use \PDO;
-use Core\DB;
+use Core\{DB, Request};
 
 class Model {
     protected static $table = "";
