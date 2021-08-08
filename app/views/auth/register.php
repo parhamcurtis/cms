@@ -6,15 +6,15 @@
 
         <form action="" method="POST">
             <div class="row">
-                <?= FH::inputBlock('First Name', 'fname', '', ['class' => 'form-control'], ['class' => 'form-group col-md-6'], $this->errors); ?>
-                <?= FH::inputBlock('Last Name', 'lname', '', ['class' => 'form-control'], ['class' => 'form-group col-md-6'], $this->errors); ?>
-                <?= FH::inputBlock('Email', 'email', '', ['class' => 'form-control', 'type' => 'email'], ['class' => 'form-group col-md-6'], $this->errors); ?>
-
+                <?= FH::inputBlock('First Name', 'fname', $this->user->fname, ['class' => 'form-control'], ['class' => 'form-group col-md-6'], $this->errors); ?>
+                <?= FH::inputBlock('Last Name', 'lname', $this->user->lname, ['class' => 'form-control'], ['class' => 'form-group col-md-6'], $this->errors); ?>
+                <?= FH::inputBlock('Email', 'email', $this->user->email, ['class' => 'form-control', 'type' => 'email'], ['class' => 'form-group col-md-6'], $this->errors); ?>
+                <?= FH::selectBlock('Role', 'acl', $this->user->acl, $this->role_options, ['class' => 'form-control'], ['class' => 'form-group col-md-6'], $this->errors); ?>
             </div>
 
             <div class="row">
-                <?= FH::inputBlock('Password', 'password', '', ['class' => 'form-control', 'type' => 'password'], ['class' => 'form-group col-md-6'], $this->errors); ?>
-                <?= FH::inputBlock('Confirm Password', 'confirm', '', ['class' => 'form-control', 'type' => 'password'], ['class' => 'form-group col-md-6'], $this->errors); ?>
+                <?= FH::inputBlock('Password', 'password', $this->user->password, ['class' => 'form-control', 'type' => 'password'], ['class' => 'form-group col-md-6'], $this->errors); ?>
+                <?= FH::inputBlock('Confirm Password', 'confirm', $this->user->confirm, ['class' => 'form-control', 'type' => 'password'], ['class' => 'form-group col-md-6'], $this->errors); ?>
             </div>
 
             <div class="text-right">

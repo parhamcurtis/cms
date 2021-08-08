@@ -1,0 +1,10 @@
+html, body {
+    background-color: #FCFAFB;
+}
+
+.poster {
+    background-color: #FFF;
+    padding: 18px;
+    border-radius: 6px;
+    border: 1px solid #DDD;
+}
