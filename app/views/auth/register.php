@@ -14,8 +14,8 @@
             </div>
 
             <div class="row">
-                <?= FH::inputBlock('Password', 'password', $this->user->password, ['class' => 'form-control', 'type' => 'password'], ['class' => 'form-group col-md-6'], $this->errors); ?>
-                <?= FH::inputBlock('Confirm Password', 'confirm', $this->user->confirm, ['class' => 'form-control', 'type' => 'password'], ['class' => 'form-group col-md-6'], $this->errors); ?>
+                <?= FH::inputBlock('Password', 'password', '', ['class' => 'form-control', 'type' => 'password'], ['class' => 'form-group col-md-6'], $this->errors); ?>
+                <?= FH::inputBlock('Confirm Password', 'confirm', '', ['class' => 'form-control', 'type' => 'password'], ['class' => 'form-group col-md-6'], $this->errors); ?>
             </div>
 
             <div class="text-right">
