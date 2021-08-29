@@ -41,4 +41,42 @@ class AuthController extends Controller {
         $this->view->errors = $user->getErrors();
         $this->view->render();
     }
+
+    public function loginAction(){
+        $user = new Users();
+        $isError = true;
+
+        if($this->request->isPost()) {
+            Session::csrfCheck();
+            $user->email = $this->request->get('email');
+            $user->password = $this->request->get('password');
+            $user->remember = $this->request->get('remember');
+            $user->validateLogin();
+            if(empty($user->getErrors())){
+                //continue with the login process
+                $u = Users::findFirst([
+                    'conditions' => "email = :email", 
+                    'bind' => ['email' => $this->request->get('email')]
+                ]);
+                if($u) {
+                    $verified = password_verify($this->request->get('password'), $u->password);
+                    if($verified) {
+                        //log the user in
+                        $isError = false;
+                        $remember = $this->request->get('remember') == 'on';
+                        $u->login($remember);
+                        Router::redirect('');
+                    }
+                }
+            }
+            if($isError) {
+                $user->setError('email', 'Something is wrong with the Email or Password. Please try again.');
+                $user->setError('password', '');
+            }
+        }
+
+        $this->view->errors = $user->getErrors();
+        $this->view->user = $user;
+        $this->view->render();
+    }
 }

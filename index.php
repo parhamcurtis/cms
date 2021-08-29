@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-use \Core\{Config, Router};
+use \Core\{Config, Router, H};
 
 //define constants 
 define('PROOT', __DIR__);
