@@ -21,13 +21,15 @@ class Users extends Model {
         $this->runValidation(new EmailValidator($this, ['field' => 'email', 'msg' => 'You must provide a valid email.']));
         $this->runValidation(new UniqueValidator($this, ['field' => ['email','acl', 'lname'], 'msg' => 'A user with that email address already exists.']));
         $this->runValidation(new RequiredValidator($this, ['field' => 'acl', 'msg' => "Role is a required field."]));
-        if($this->isNew()) {
+        if($this->isNew() || $this->resetPassword) {
             $this->runValidation(new RequiredValidator($this, ['field' => 'password', 'msg' => "Password is a required field."]));
             $this->runValidation(new RequiredValidator($this, ['field' => 'confirm', 'msg' => "Confirm Password is a required field."]));
             $this->runValidation(new MatchesValidator($this, ['field' => 'confirm', 'rule' => $this->password, 'msg' => "Your passwords do not match."]));
             $this->runValidation(new MinValidator($this, ['field' => 'password', 'rule' => 8, 'msg' => "Password must be at least 8 characters."]));
 
             $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+        } else {
+            $this->_skipUpdate = ['password'];
         }
     }
 }

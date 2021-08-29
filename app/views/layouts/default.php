@@ -1,4 +1,4 @@
-<?php use Core\Config; ?>
+<?php use Core\{Config, Session}; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,6 +18,7 @@
 <body>
     <?php $this->partial('partials/mainMenu'); ?>
     <div class="container-fluid p-4">
+        <?= Session::displaySessionAlerts(); ?>
         <?php $this->content('content'); ?>
     </div>
 </body>
