@@ -2,6 +2,7 @@
 session_start();
 
 use \Core\{Config, Router, H};
+use App\Models\Users;
 
 //define constants 
 define('PROOT', __DIR__);
@@ -18,6 +19,9 @@ spl_autoload_register(function($className){
         include($path);
     }
 });
+
+//check for logged in user
+$currentUser = Users::getCurrentUser();
 
 $rootDir = Config::get('root_dir');
 define('ROOT', $rootDir);
