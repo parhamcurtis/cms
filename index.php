@@ -29,4 +29,5 @@ define('ROOT', $rootDir);
 $url = $_SERVER['REQUEST_URI'];
 $url = str_replace(ROOT, '', $url);
 $url = preg_replace('/(\?.+)/', '', $url);
+$currentPage = $url;
 Router::route($url);
