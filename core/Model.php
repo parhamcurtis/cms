@@ -68,7 +68,7 @@ class Model {
         $sql .= $conds;
         $db = static::getDb();
         $results = $db->query($sql, $bind);
-        $total = $results->getRowCount() > 0 ? $results->results()[0]->total : 0;
+        $total = sizeof($results->results()) > 0 ? $results->results()[0]->total : 0;
         return $total;
     }
 

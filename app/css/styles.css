@@ -8,3 +8,46 @@ html, body {
     border-radius: 6px;
     border: 1px solid #DDD;
 }
+
+.side-nav {
+    width: 300px;
+    height: calc(100vh - 72px);
+    background-color: #FFF;
+    overflow-y: auto;
+    border-right: 1px solid #CCC;
+    padding: 0px;
+}
+
+.side-nav .nav-title {
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 18px;
+}
+
+.side-nav .nav-title::after {
+    content: "";
+    display: block;
+    width: 50%;
+    margin: 12px auto;
+    border-bottom: 2px solid #DDD;
+}
+
+.side-nav li {
+    list-style: none;
+}
+
+.side-nav li a {
+    width: 100%;
+    height: 100%;
+    padding: 9px 18px;
+    display: block;
+    color: #343A40;
+}
+
+.side-nav li a:hover, .side-nav li.active a {
+    color: #111;
+    background-color: #F1F1F1;
+    text-decoration: none;
+}

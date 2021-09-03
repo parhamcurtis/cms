@@ -86,4 +86,12 @@ class Users extends Model {
         if(!self::$_current_user) self::loginFromCookie();
         return self::$_current_user;
     }
+
+    public function hasPermission($acl) {
+        return $this->acl == $acl;
+    }
+
+    public function displayName() {
+        return trim($this->fname . ' ' . $this->lname);
+    }
 }
