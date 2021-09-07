@@ -1,6 +1,6 @@
 <?php 
 namespace App\Controllers;
-use Core\{Controller, Session, Router};
+use Core\{Controller, Session, Router, H};
 use App\Models\{Users};
 
 class AdminController extends Controller {
@@ -21,6 +21,7 @@ class AdminController extends Controller {
             Router::redirect('admin/articles');
         }
         $params = ['order' => 'lname, fname'];
+        $params = Users::mergeWithPagination($params);
         $this->view->users = Users::find($params);
         $this->view->total = Users::findTotal($params);
         $this->view->render();

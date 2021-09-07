@@ -144,7 +144,7 @@ class Model {
         }
 
         // offset
-        if(array_key_exists('offest', $params)) {
+        if(array_key_exists('offset', $params)) {
             $offset = $params['offset'];
             $sql .= " OFFSET {$offset}";
         }
@@ -214,4 +214,5 @@ class Model {
     }
 
     public function beforeSave(){}
+
 }
