@@ -1,7 +1,7 @@
 <?php 
 namespace App\Controllers;
 use Core\{Controller, Session, Router, H};
-use App\Models\{Users, Categories, Articles};
+use App\Models\{Users, Categories, Articles, Upload};
 
 class AdminController extends Controller {
 
@@ -39,13 +39,31 @@ class AdminController extends Controller {
             $article->body = $this->request->get('body');
             $article->status = $this->request->get('status');
             $article->category_id = $this->request->get('category_id');
+            $upload = new Upload('featured_image');
+            if($id != 'new') {
+                $article->required = false;
+            }
+            $uploadErrors = $upload->validate();
+            if(!empty($uploadErrors)) {
+                foreach($uploadErrors as $field => $error) {
+                    $article->setError($field, $error);
+                }
+            }
             if($article->save()) {
+                if(!empty($upload->tmp)) {
+                    $filePath = "app/uploads/featured_images/featured_image_{$article->id}";
+                    $upload->upload(PROOT . DS . $filePath);
+                    $article->img = $filePath;
+                    $article->save();
+                }
+                
                 Session::msg("{$article->title} saved.", 'success');
                 Router::redirect('admin/articles');
             }
         }
 
         $this->view->article = $article;
+        $this->view->hasImage = !empty($article->img);
         $this->view->statusOptions = ['private' => 'Private', 'public' => 'Public'];
         $this->view->categoryOptions = $catOptions;
         $this->view->errors = $article->getErrors();
