@@ -49,7 +49,7 @@ class AdminController extends Controller {
             $article->category_id = $this->request->get('category_id');
             $upload = new Upload('featured_image');
             if($id != 'new') {
-                $article->required = false;
+                $upload->required = false;
             }
             $uploadErrors = $upload->validate();
             if(!empty($uploadErrors)) {

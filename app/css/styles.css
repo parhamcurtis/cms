@@ -51,3 +51,24 @@ html, body {
     background-color: #F1F1F1;
     text-decoration: none;
 }
+
+.articles-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 48px;
+}
+
+.article-preview {
+    width: 250px;
+}
+
+.article-preview img.card-img-top {
+    height: 150px;
+    object-fit: cover;
+}
+
+.article-preview .card-text{
+    max-height: 4.5rem;
+    padding-right: 1rem;
+    overflow: hidden;
+}
