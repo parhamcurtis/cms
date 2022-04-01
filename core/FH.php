@@ -54,6 +54,18 @@ class FH {
         return $html;
     }
 
+    public static function fileUpload($label, $id, $input = [], $wrapper = [], $errors=[]) {
+        $inputAttrs = self::appendErrors($id, $input, $errors);
+        $wrapperStr = self::processAttrs($wrapper);
+        $inputStr = self::processAttrs($inputAttrs);
+        $errorMsg = array_key_exists($id, $errors)? $errors[$id] : "";
+        $html = "<div {$wrapperStr}>";
+        $html .= "<label for=\"{$id}\">{$label}</label>";
+        $html .= "<input type=\"file\" id=\"{$id}\" name=\"{$id}\" {$inputStr}/>";
+        $html .= "<div class=\"invalid-feedback\">{$errorMsg}</div></div>";
+        return $html;
+    }
+
     public static function appendErrors($key, $inputAttrs, $errors) {
         if(array_key_exists($key, $errors)) {
             if(array_key_exists('class', $inputAttrs)) {

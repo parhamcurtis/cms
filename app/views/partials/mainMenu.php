@@ -1,6 +1,9 @@
 <?php 
   use Core\H;
+  use App\Models\{Categories, Users};
   global $currentUser;
+  $categories = Categories::findAllWithArticles();
+  $authors = Users::findAuthorsWithArticles();
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="<?=ROOT?>">Freeskills</a>
@@ -11,15 +14,27 @@
     <ul class="navbar-nav mr-auto my-lg-0 navbar-nav-scroll">
       <?= H::navItem('blog/index', 'Home'); ?>
       
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown link
+      <li class="<?=H::activeClass('blog/category/:id','nav-item dropdown')?>">
+        <a class="nav-link dropdown-toggle" href="#" id="categoryDropdownLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Categories
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
+        <ul class="dropdown-menu" aria-labelledby="categoryDropdownLink">
+          <?= H::navItem('blog/category/0', 'Uncategorized', true);?>
+          <?php foreach($categories as $category):?>
+            <?= H::navItem('blog/category/' . $category->id, $category->name, true); ?>
+          <?php endforeach;?>
+        </ul>
+      </li>
+
+      <li class="<?=H::activeClass('blog/author/:id','nav-item dropdown')?>">
+        <a href="#" class="nav-link dropdown-toggle" id="authorDropdownLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Authors</a>
+        <ul class="dropdown-menu" aria-labelledby="authorDropdownLink">
+            <?php 
+              foreach($authors as $author) {
+                echo H::navItem('blog/author/' . $author->id, $author->displayName(), true);
+              }
+            ?>
+        </ul>
       </li>
     </ul>
 

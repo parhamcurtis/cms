@@ -191,6 +191,7 @@ class Model {
 
     public function setError($name, $value) {
         $this->_errors[$name] = $value;
+        $this->_validationPassed = false;
     }
 
     public function timeStamps() {

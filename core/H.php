@@ -15,7 +15,7 @@ class H {
     public static function isCurrentPage($page) {
         global $currentPage;
         if(!empty($page) && strpos($page, ':id') > -1) {
-            $test = str_replace(":id", "", $page);
+            $page = str_replace(":id", "", $page);
             return strpos($currentPage, $page) > -1;
         }
         return $page == $currentPage;

@@ -101,4 +101,17 @@ class Users extends Model {
     public function displayName() {
         return trim($this->fname . ' ' . $this->lname);
     }
+
+  public static function findAuthorsWithArticles() {
+    $params = [
+        'columns' => "users.fname, users.lname, users.id", 
+        'conditions' => "articles.status = 'public'", 
+        'joins' => [
+            ['articles', 'articles.user_id = users.id']
+        ],
+        'group' => 'users.id',
+        'order' => 'users.lname, users.fname'
+    ];
+    return self::find($params);
+  }
 }
